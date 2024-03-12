@@ -16,8 +16,3 @@ terraform {
     key                  = "avd-hp.tfstate"
   }
 }
-
-provider "azurerm" {
-  features {}
-  subscription_id = "XXXXXX-XXXXXX-XXXXXX-XXXXXX-XXXXXX"
-}

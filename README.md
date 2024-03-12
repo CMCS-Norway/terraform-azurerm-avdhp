@@ -12,7 +12,8 @@
 | | |
 |----------|----------|
 |Terraform | >= 1.5.0 |
-| azurerm  | = 3.67.0 |
+| azurerm  | = 3.42.0 |
+| azuread  | = 2.33.0 |
 
 
 ## Customizable module properties 

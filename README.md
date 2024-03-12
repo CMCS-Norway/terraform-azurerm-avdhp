@@ -1,4 +1,4 @@
-# Azure-tf-AVD-HP-Module
+# Terraform AzureRM Azure Virtual Desktop Hostpool module
 ### This module deployes the following resources:
 - 1 and only 1 Azure Virtual Desktop Hostpool
 - Application groups, with workspacce attachment to the created AVD HP and 1 Entra ID group per application to provide access to remote desktop application for users. The ammount of application groups, etc. that will be deployed is decided in the "apps" key-value pair, see example!

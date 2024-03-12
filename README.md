@@ -8,6 +8,12 @@
 - Virtual machine
 - Probably something else ive forgotten to add
 
+## Requirements
+| | |
+|----------|----------|
+|Terraform | >= 1.5.0 |
+| azurerm  | = 3.67.0 |
+
 
 ## Customizable module properties 
 

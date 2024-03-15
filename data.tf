@@ -11,3 +11,7 @@ data "azurerm_subnet" "avd" {
   resource_group_name = var.azurerm_subnet_rg
   virtual_network_name = var.azurerm_subnet_vnet
 }
+
+data "azurerm_private_dns_zone" "file" {
+  name = var.azurerm_private_dns_zone  
+}

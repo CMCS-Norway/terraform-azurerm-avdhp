@@ -151,3 +151,9 @@ variable "azurerm_subnet_vnet" {
   description = "AVD subnet's  virtual network name for private endpoint"
   default = "change me"
 }
+
+variable "azurerm_private_dns_zone" {
+  type = string
+  description = "Azurerm private dns zone"
+  default = "change me"
+}

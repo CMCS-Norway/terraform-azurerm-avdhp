@@ -55,7 +55,8 @@ resource "azurerm_storage_account" "avdstorage" {
   account_kind                  = var.account_kind
   account_replication_type      = var.account_replication_type
   min_tls_version               = var.min_tls_version
-  public_network_access_enabled = true
+  public_network_access_enabled = var.public_network_access_enabled
+  depends_on = [ azurerm_resource_group.avd ]
   azure_files_authentication {
     directory_type = var.directory_type
   }

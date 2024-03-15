@@ -40,7 +40,7 @@ variable "start_vm_on_connect" {
 variable "location" {
   type        = string
   description = "Where will the host pool be deployed"
-  default     = "West Europe"
+  default     = "westeurope"
 }
 
 variable "root_name" {
@@ -90,7 +90,7 @@ variable "avd_displayname" {
 variable "directory_type" {
   type = string
   description = "Storage account authentication type"
-  default = "AADDS"
+  default = "AADKERB"
 }
 
 variable "account_kind" {
@@ -137,23 +137,35 @@ variable "profiles_quota" {
 variable "avd_subnet_name" {
   type = string
   description = "AVD subnet name for private endpoint"
-  default = "change me"
+  default = "avdSubnet"
 }
 
 variable "avd_subnet_rg" {
 type = string
   description = "AVD subnet's reosurce group name for private endpoint"
-  default = "change me"
-}
-
-variable "avd_subnet_vnet" {
-  type = string
-  description = "AVD subnet's  virtual network name for private endpoint"
-  default = "change me"
+  default = null
 }
 
 variable "avd_private_dns_zone" {
   type = string
   description = "AVD private dns zone name for storage account"
-  default = "change me"
+  default = "privatelink.file.core.windows.net"
+}
+
+variable "avd_vnet" {
+  type = string
+  description = "vnet name minus root_name"
+  default = "-landingzone-avd-westeurope-vnet"
+}
+
+variable "subscription_id_connectivity" {
+  type = string
+  description = "subscription ID for azurerm_private_dns_zone file resource"
+  default = "changeme"
+}
+
+variable "public_network_access_enabled" {
+  type = bool
+  description = "should public_network_access_enabled be true or false"
+  default = false
 }

@@ -8,10 +8,12 @@ output "azuread_service_principal" {
 
 data "azurerm_subnet" "avd" {
   name = var.avd_subnet_name
-  resource_group_name = var.avd_subnet_rg
-  virtual_network_name = var.avd_subnet_vnet
+  resource_group_name = "${var.root_name}-connectivity-${var.location}"
+  virtual_network_name = "${var.root_name}${var.avd_vnet}"
 }
 
 data "azurerm_private_dns_zone" "file" {
-  name = var.avd_private_dns_zone  
+  name                = var.avd_private_dns_zone
+  resource_group_name = "${var.root_name}-dns"
+  provider            = azurerm.connectivity
 }

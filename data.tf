@@ -5,3 +5,9 @@ data "azuread_service_principal" "avd" {
 output "azuread_service_principal" {
   value = data.azuread_service_principal.avd.object_id
 }
+
+data "azurerm_subnet" "avd" {
+  name = var.azurerm_subnet_name
+  resource_group_name = var.azurerm_subnet_rg
+  virtual_network_name = var.azurerm_subnet_vnet
+}

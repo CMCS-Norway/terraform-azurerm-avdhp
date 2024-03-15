@@ -106,7 +106,7 @@ variable "account_tier" {
 }
 
 variable "account_replication_type" {
-    type = string
+  type = string
   description = "Storage account replication type"
   default = "LRS"
 }
@@ -132,4 +132,22 @@ variable "profiles_quota" {
   type = number
   description = "AVD Profiles storage share quota"
   default = 500
+}
+
+variable "azurerm_subnet_name" {
+  type = string
+  description = "AVD subnet name for private endpoint"
+  default = "change me"
+}
+
+variable "azurerm_subnet_rg" {
+type = string
+  description = "AVD subnet's reosurce group name for private endpoint"
+  default = "change me"
+}
+
+variable "azurerm_subnet_vnet" {
+  type = string
+  description = "AVD subnet's  virtual network name for private endpoint"
+  default = "change me"
 }

@@ -48,9 +48,6 @@ resource "azurerm_virtual_desktop_host_pool" "avd-pool" {
     }
   }
 
-  depends_on = [
-    azurerm_resource_group.avd
-  ]
   lifecycle {
     ignore_changes = [maximum_sessions_allowed, custom_rdp_properties, load_balancer_type]
   }

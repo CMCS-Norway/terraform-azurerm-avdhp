@@ -134,26 +134,26 @@ variable "profiles_quota" {
   default = 500
 }
 
-variable "azurerm_subnet_name" {
+variable "avd_subnet_name" {
   type = string
   description = "AVD subnet name for private endpoint"
   default = "change me"
 }
 
-variable "azurerm_subnet_rg" {
+variable "avd_subnet_rg" {
 type = string
   description = "AVD subnet's reosurce group name for private endpoint"
   default = "change me"
 }
 
-variable "azurerm_subnet_vnet" {
+variable "avd_subnet_vnet" {
   type = string
   description = "AVD subnet's  virtual network name for private endpoint"
   default = "change me"
 }
 
-variable "azurerm_private_dns_zone" {
+variable "avd_private_dns_zone" {
   type = string
-  description = "Azurerm private dns zone"
+  description = "AVD private dns zone name for storage account"
   default = "change me"
 }

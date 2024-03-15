@@ -7,11 +7,11 @@ output "azuread_service_principal" {
 }
 
 data "azurerm_subnet" "avd" {
-  name = var.azurerm_subnet_name
-  resource_group_name = var.azurerm_subnet_rg
-  virtual_network_name = var.azurerm_subnet_vnet
+  name = var.avd_subnet_name
+  resource_group_name = var.avd_subnet_rg
+  virtual_network_name = var.avd_subnet_vnet
 }
 
 data "azurerm_private_dns_zone" "file" {
-  name = var.azurerm_private_dns_zone  
+  name = var.avd_private_dns_zone  
 }

@@ -86,3 +86,50 @@ variable "avd_displayname" {
   description = "Display name of Azure Virtual Desktop Enterprise application in Entra ID"
   default     = "Azure Virtual Desktop"
 }
+
+variable "directory_type" {
+  type = string
+  description = "Storage account authentication type"
+  default = "AADDS"
+}
+
+variable "account_kind" {
+  type = string
+  description = "Storage account kind"
+  default = "StorageV2"
+}
+
+variable "account_tier" {
+  type = string
+  description = "Storage account tier"
+  default = "Standard"
+}
+
+variable "account_replication_type" {
+    type = string
+  description = "Storage account replication type"
+  default = "LRS"
+}
+
+variable "min_tls_version" {
+  type = string
+  description = "Storage account minimum TLS Vversion, should be minimum TLS 1_2"
+  default = "TLS1_2"
+}
+
+variable "storage_share_name" {
+  type = string
+  description = "AVD Profile storage share name"
+  default = "profiles"
+}
+variable "create_private_endpoint" {
+  type = bool
+  description = "True or false if AVD storage account private endpoint should be created"
+  default = true
+}
+
+variable "profiles_quota" {
+  type = number
+  description = "AVD Profiles storage share quota"
+  default = 500
+}

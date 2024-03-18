@@ -67,7 +67,7 @@ resource "azurerm_storage_account" "avdstorage" {
 resource "azurerm_storage_share" "profiles" {
   count                 = var.create_storage_account ? 1 : 0
   name                  = var.storage_share_name
-  storage_account_name  = azurerm_storage_account.avdstorage[0][0].name
+  storage_account_name  = azurerm_storage_account.avdstorage[0].name
   quota                 = var.profiles_quota
   depends_on            = [azurerm_storage_account.avdstorage[0]]
 }

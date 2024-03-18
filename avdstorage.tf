@@ -16,15 +16,15 @@ resource "azurerm_storage_account" "avdstorageautomation" {
 
 # Private Endpoints for AVD Storage Account in AVD Subnet
 resource "azurerm_private_endpoint" "avdstorageautomation-queue-endpoint" {
-  name                = "${azurerm_storage_account.avdstorageautomation.name}-queue-endpoint"
+  name                = "${azurerm_storage_account.avdstorage[0]automation.name}-queue-endpoint"
   resource_group_name = azurerm_resource_group.avd.name
   location            = azurerm_resource_group.avd.location
   tags                = azurerm_resource_group.avd.tags
   subnet_id           = data.azurerm_subnet.avd.id
 
   private_service_connection {
-    name                           = "${azurerm_storage_account.avdstorageautomation.name}-queue-connection"
-    private_connection_resource_id = azurerm_storage_account.avdstorageautomation.id
+    name                           = "${azurerm_storage_account.avdstorage[0]automation.name}-queue-connection"
+    private_connection_resource_id = azurerm_storage_account.avdstorage[0]automation.id
     is_manual_connection           = false
     subresource_names = ["queue"]
   }
@@ -38,7 +38,7 @@ resource "azurerm_private_endpoint" "avdstorageautomation-queue-endpoint" {
 
   depends_on = [
     azurerm_resource_group.avd,
-    azurerm_storage_account.avdstorage,
+    azurerm_storage_account.avdstorage[0],
     data.azurerm_subnet.avd
     ]
 }
@@ -67,23 +67,23 @@ resource "azurerm_storage_account" "avdstorage" {
 resource "azurerm_storage_share" "profiles" {
   count                 = var.create_storage_account ? 1 : 0
   name                  = var.storage_share_name
-  storage_account_name  = azurerm_storage_account.avdstorage.name
+  storage_account_name  = azurerm_storage_account.avdstorage[0][0].name
   quota                 = var.profiles_quota
-  depends_on            = [azurerm_storage_account.avdstorage]
+  depends_on            = [azurerm_storage_account.avdstorage[0]]
 }
 
 # Private Endpoints for AVD Storage Account in AVD Subnet
 resource "azurerm_private_endpoint" "avdstorage-file-endpoint" {
   count               = var.create_private_endpoint ? 1 : 0
-  name                = "${azurerm_storage_account.avdstorage.name}-file-endpoint"
+  name                = "${azurerm_storage_account.avdstorage[0].name}-file-endpoint"
   resource_group_name = azurerm_resource_group.avd.name
   location            = azurerm_resource_group.avd.location
   tags                = azurerm_resource_group.avd.tags
   subnet_id           = data.azurerm_subnet.avd.id
 
   private_service_connection {
-    name                           = "${azurerm_storage_account.avdstorage.name}-file-connection"
-    private_connection_resource_id = azurerm_storage_account.avdstorage.id
+    name                           = "${azurerm_storage_account.avdstorage[0].name}-file-connection"
+    private_connection_resource_id = azurerm_storage_account.avdstorage[0].id
     is_manual_connection           = false
     subresource_names = ["file"]
   }
@@ -91,13 +91,13 @@ resource "azurerm_private_endpoint" "avdstorage-file-endpoint" {
   private_dns_zone_group {
       name                  = "default"
       private_dns_zone_ids  = [
-        data.azurerm_private_dns_zone.file.id
+        data.azurerm_private_dns_zone.file[0].id
         ]
     }
 
   depends_on = [
     azurerm_resource_group.avd,
-    azurerm_storage_account.avdstorage,
+    azurerm_storage_account.avdstorage[0],
     data.azurerm_subnet.avd
     ]
 }
@@ -105,22 +105,22 @@ resource "azurerm_private_endpoint" "avdstorage-file-endpoint" {
 # RBAC: AVD Storage Account:
 resource "azurerm_role_assignment" "smb_contributor" {
   count                 = var.create_storage_account ? 1 : 0
-  scope                 = azurerm_storage_account.avdstorage.id
+  scope                 = azurerm_storage_account.avdstorage[0].id
   role_definition_name  = "Storage File Data SMB Share Contributor"
   principal_id          = azuread_group.g-avd-users.object_id
   depends_on = [
-    azurerm_storage_account.avdstorage,
+    azurerm_storage_account.avdstorage[0],
     azuread_group.g-avd-users
     ]
 }
 
 resource "azurerm_role_assignment" "smb_elevated_contributor" {
   count                 = var.create_storage_account ? 1 : 0
-  scope                 = azurerm_storage_account.avdstorage.id
+  scope                 = azurerm_storage_account.avdstorage[0].id
   role_definition_name  = "Storage File Data SMB Share Elevated Contributor"
   principal_id          = azuread_group.g-avd-admins.object_id
   depends_on = [
-    azurerm_storage_account.avdstorage,
+    azurerm_storage_account.avdstorage[0],
     azuread_group.g-avd-admins
     ]
 }

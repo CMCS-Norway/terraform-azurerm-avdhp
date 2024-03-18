@@ -13,6 +13,7 @@ data "azurerm_subnet" "avd" {
 }
 
 data "azurerm_private_dns_zone" "file" {
+  count               = var.create_private_endpoint ? 1 : 0
   name                = var.avd_private_dns_zone
   resource_group_name = "${var.root_name}-dns"
   provider            = azurerm.connectivity

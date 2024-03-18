@@ -78,7 +78,13 @@ variable "validate_environment" {
 variable "create_scaling_plan" {
   type        = bool
   description = "true or false if you want to create scaling plan and attach to the host pool"
-  default     = false
+  default     = true
+}
+
+variable "create_storage_account" {
+  type = bool
+  description = "True or false if you want to create a storage account for AVD user profiles"
+  default = true
 }
 
 variable "avd_displayname" {

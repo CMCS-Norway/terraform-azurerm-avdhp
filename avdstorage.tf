@@ -47,6 +47,7 @@ resource "azurerm_private_endpoint" "avdstorageautomation-queue-endpoint" {
 # AVD Storage Account for File Services (Profiles, Installers, etc)
 ####################################
 resource "azurerm_storage_account" "avdstorage" {
+  count                         = var.create_storage_account ? 1 : 0
   name                          = "st${var.root_name}avd"
   resource_group_name           = azurerm_resource_group.avd.name
   location                      = azurerm_resource_group.avd.location
@@ -64,10 +65,11 @@ resource "azurerm_storage_account" "avdstorage" {
 
 # Create File Shares
 resource "azurerm_storage_share" "profiles" {
-  name                 = var.storage_share_name
-  storage_account_name = azurerm_storage_account.avdstorage.name
-  quota                = var.profiles_quota
-  depends_on           = [azurerm_storage_account.avdstorage]
+  count                 = var.create_storage_account ? 1 : 0
+  name                  = var.storage_share_name
+  storage_account_name  = azurerm_storage_account.avdstorage.name
+  quota                 = var.profiles_quota
+  depends_on            = [azurerm_storage_account.avdstorage]
 }
 
 # Private Endpoints for AVD Storage Account in AVD Subnet
@@ -102,9 +104,10 @@ resource "azurerm_private_endpoint" "avdstorage-file-endpoint" {
 
 # RBAC: AVD Storage Account:
 resource "azurerm_role_assignment" "smb_contributor" {
-  scope                = azurerm_storage_account.avdstorage.id
-  role_definition_name = "Storage File Data SMB Share Contributor"
-  principal_id         = azuread_group.g-avd-users.object_id
+  count                 = var.create_storage_account ? 1 : 0
+  scope                 = azurerm_storage_account.avdstorage.id
+  role_definition_name  = "Storage File Data SMB Share Contributor"
+  principal_id          = azuread_group.g-avd-users.object_id
   depends_on = [
     azurerm_storage_account.avdstorage,
     azuread_group.g-avd-users
@@ -112,9 +115,10 @@ resource "azurerm_role_assignment" "smb_contributor" {
 }
 
 resource "azurerm_role_assignment" "smb_elevated_contributor" {
-  scope                = azurerm_storage_account.avdstorage.id
-  role_definition_name = "Storage File Data SMB Share Elevated Contributor"
-  principal_id         = azuread_group.g-avd-admins.object_id
+  count                 = var.create_storage_account ? 1 : 0
+  scope                 = azurerm_storage_account.avdstorage.id
+  role_definition_name  = "Storage File Data SMB Share Elevated Contributor"
+  principal_id          = azuread_group.g-avd-admins.object_id
   depends_on = [
     azurerm_storage_account.avdstorage,
     azuread_group.g-avd-admins

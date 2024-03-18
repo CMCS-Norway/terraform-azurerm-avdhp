@@ -55,15 +55,6 @@ resource "azurerm_virtual_desktop_host_pool" "avd-pool" {
 
 # AVD RBAC Roles
 
-# Desktop Virtualization Power On Contributor
-# (let them power on AVD host if they are the first person to login)
-resource "azurerm_role_assignment" "avd-rbac-poweroncontributor" {
-  #for_each             = var.hostpool
-  scope                = "/subscriptions/${var.subscription_id}"
-  role_definition_name = "Desktop Virtualization Power On Contributor"
-  principal_id         = azuread_group.g-avd-users.object_id
-}
-
 # Desktop Virtualization User Session Operator
 resource "azurerm_role_assignment" "avd-rbac-usersessionoperator" {
   #for_each             = var.hostpool 

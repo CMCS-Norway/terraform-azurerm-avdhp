@@ -18,3 +18,7 @@ data "azurerm_private_dns_zone" "file" {
   resource_group_name = "${var.root_name}-dns"
   provider            = azurerm.connectivity
 }
+
+data azurerm_subscription "current" {
+  
+}

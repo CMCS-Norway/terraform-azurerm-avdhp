@@ -36,7 +36,7 @@ resource "azurerm_virtual_desktop_scaling_plan" "scalingplan" {
 # Desktop Virtualization Power On/off Contributor to Azure Virtual Desktop host pool for scaling plans
 resource "azurerm_role_assignment" "avd-rbac-poweronoffcontributor" {
   count                = var.create_scaling_plan ? 1 : 0
-  scope                = "/subscriptions/${ARM_SUBSCRIPTION_ID}"
+  scope                = "/subscriptions/${data.azurerm_subscription.current.subscription_id}"
   role_definition_name = "Desktop Virtualization Power On Off Contributor"
   principal_id         = data.azuread_service_principal.avd.object_id
 }

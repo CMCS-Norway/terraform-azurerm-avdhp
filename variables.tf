@@ -167,7 +167,7 @@ variable "avd_vnet" {
 variable "subscription_id_connectivity" {
   type = string
   description = "subscription ID for azurerm_private_dns_zone file resource"
-  default = "changeme"
+  default = null
 }
 
 variable "public_network_access_enabled" {

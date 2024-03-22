@@ -173,5 +173,5 @@ variable "subscription_id_connectivity" {
 variable "public_network_access_enabled" {
   type = bool
   description = "should public_network_access_enabled be true or false"
-  default = false
+  default = true
 }

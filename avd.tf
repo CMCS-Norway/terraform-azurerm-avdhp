@@ -27,7 +27,7 @@ resource "azurerm_virtual_desktop_workspace" "avd-workspace" {
 # AVD Host Pool
 resource "azurerm_virtual_desktop_host_pool" "avd-pool" {
   #for_each                 = var.hostpool 
-  name                     = "avd-${var.hostpool}-hostpool"
+  name                     = "avd-${var.root_name}-${var.hostpool}-hostpool"
   friendly_name            = "${var.root_name} ${var.hostpool} host pool"
   location                 = var.location
   resource_group_name      = azurerm_resource_group.avd.name

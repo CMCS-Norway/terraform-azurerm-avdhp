@@ -175,3 +175,9 @@ variable "public_network_access_enabled" {
   description = "should public_network_access_enabled be true or false"
   default = true
 }
+
+variable "private_endpoint_resource_group" {
+  type = string
+  description = "Name of the private endpoints resource group"
+  default = null
+}

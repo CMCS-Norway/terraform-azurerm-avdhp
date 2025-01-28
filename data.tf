@@ -4,7 +4,7 @@ data "azuread_service_principal" "avd" {
 }
 
 output "azuread_service_principal" {
-  value = data.azuread_service_principal.avd.object_id
+  value = data.azuread_service_principal.avd[0].object_id
 }
 
 data "azurerm_private_dns_zone" "file" {

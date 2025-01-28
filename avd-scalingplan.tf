@@ -11,7 +11,7 @@ resource "azurerm_virtual_desktop_scaling_plan" "scalingplan" {
     days_of_week                         = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
     ramp_up_start_time                   = "07:00"
     ramp_up_load_balancing_algorithm     = "BreadthFirst"
-    ramp_up_minimum_hosts_percent        = 20
+    ramp_up_minimum_hosts_percent        = 25
     ramp_up_capacity_threshold_percent   = 75
     peak_start_time                      = "09:00"
     peak_load_balancing_algorithm        = "BreadthFirst"
@@ -36,7 +36,7 @@ resource "azurerm_virtual_desktop_scaling_plan" "scalingplan" {
 # Desktop Virtualization Power On/off Contributor to Azure Virtual Desktop host pool for scaling plans
 resource "azurerm_role_assignment" "avd-rbac-poweronoffcontributor" {
   count                = var.create_scaling_plan ? 1 : 0
-  scope                = "/subscriptions/${data.azurerm_subscription.current.subscription_id}"
+  scope                = azurerm_resource_group.avd.id
   role_definition_name = "Desktop Virtualization Power On Off Contributor"
-  principal_id         = data.azuread_service_principal.avd.object_id
+  principal_id         = data.azuread_service_principal.avd[0].object_id
 }

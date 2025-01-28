@@ -4,7 +4,7 @@
 
 variable "rdp_properties" {
   type    = string
-  default = "audiocapturemode:i:1;audiomode:i:0;redirectprinters:i:1;drivestoredirect:s:c\\:;autoreconnection enabled:i:1;enablerdsaadauth:i:1;use multimon:i:1;dynamic resolution:i:1;networkautodetect:i:1"
+  default = "audiocapturemode:i:1;audiomode:i:0;redirectprinters:i:1;drivestoredirect:s:c\\:;autoreconnection enabled:i:1;use multimon:i:1;dynamic resolution:i:1;networkautodetect:i:1;enablecredsspsupport:i:0;videoplaybackmode:i:1;devicestoredirect:s:*;redirectclipboard:i:1;redirectcomports:i:1;redirectsmartcards:i:1;redirectwebauthn:i:1;usbdevicestoredirect:s:*;screen mode id:i:1;smart sizing:i:1;camerastoredirect:s:*"
 }
 
 variable "maximum_sessions_allowed" {
@@ -96,13 +96,13 @@ variable "avd_displayname" {
 variable "directory_type" {
   type = string
   description = "Storage account authentication type"
-  default = "AADKERB"
+  default = "AADDS"
 }
 
 variable "account_kind" {
   type = string
   description = "Storage account kind"
-  default = "StorageV2"
+  default = "FileStorage"
 }
 
 variable "account_tier" {
@@ -121,6 +121,11 @@ variable "min_tls_version" {
   type = string
   description = "Storage account minimum TLS Vversion, should be minimum TLS 1_2"
   default = "TLS1_2"
+}
+
+variable "friendly_name" {
+  type = string
+  description = "Friendly name of the AVD host pool"
 }
 
 variable "storage_share_name" {
@@ -180,4 +185,22 @@ variable "private_endpoint_resource_group" {
   type = string
   description = "Name of the private endpoints resource group"
   default = null
+}
+
+variable "avd_object_id" {
+  type = string
+  description = "Azure/Windows Virtual Desktop enterprise app object id"
+  default = null
+}
+
+variable "preferred_app_group_type" {
+  type = string
+  description = "What type of Host pool Preferred app group type do you want"
+  default = "RailApplications"
+}
+
+variable "location_storage_account" {
+  type = string
+  description = "What location will the storage account be deployed too"
+  default = "West Europe"
 }

@@ -3,7 +3,7 @@
 ############################
 
 # Creates application group and associates it to the host pool defined
-resource "azurerm_virtual_desktop_application_group" "dag" {   
+resource "azurerm_virtual_desktop_application_group" "dag" {
     for_each            = var.apps
     name                = "${each.key}-app-${azurerm_virtual_desktop_host_pool.avd-pool.name}-avd"
     friendly_name       = "${each.value} - ${azurerm_virtual_desktop_host_pool.avd-pool.name}"
@@ -42,7 +42,7 @@ resource "azurerm_role_assignment" "dag" {
 
 resource "azuread_group" "dag" {
   for_each         = var.apps
-  display_name     = "G-AVD-APP-${each.key}"
-  description      = "Grant users access to ${each.value} in AVD. (Source: Terraform)"
+  display_name     = "G-AVD-APP-${var.hostpool}-${each.key}"
+  description      = "Grant users access to ${each.value} in AVD hostpool ${azurerm_virtual_desktop_host_pool.avd-pool.name}. (Source: Terraform)"
   security_enabled = true
 }

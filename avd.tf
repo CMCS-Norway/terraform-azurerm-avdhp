@@ -1,7 +1,6 @@
 # AVD Shared resources RG
 resource "azurerm_resource_group" "avd" {
-  #for_each = var.hostpool
-  name     = "rg-avd-${var.hostpool}-hostpool-shared"
+  name     = "rg-avd-${var.root_name}-${var.hostpool}-hostpool-shared"
   location = var.location
   tags = {
     landingzone = "AVD"
@@ -12,12 +11,11 @@ resource "azurerm_resource_group" "avd" {
 
 # AVD Workspace
 resource "azurerm_virtual_desktop_workspace" "avd-workspace" {
-  #for_each            = var.hostpool
   name                = "${var.root_name}-${var.hostpool}-workspace"
   resource_group_name = azurerm_resource_group.avd.name
   tags                = azurerm_resource_group.avd.tags
   location            = var.location
-  friendly_name       = var.root_name
+  friendly_name       = var.friendly_name
   description         = "AVD ${var.hostpool} Workspace for ${var.root_name}"
   depends_on = [
     azurerm_resource_group.avd
@@ -26,9 +24,8 @@ resource "azurerm_virtual_desktop_workspace" "avd-workspace" {
 
 # AVD Host Pool
 resource "azurerm_virtual_desktop_host_pool" "avd-pool" {
-  #for_each                 = var.hostpool 
   name                     = "avd-${var.root_name}-${var.hostpool}-hostpool"
-  friendly_name            = "${var.root_name} ${var.hostpool} host pool"
+  friendly_name            = "${var.root_name} ${var.hostpool} Remote desktop"
   location                 = var.location
   resource_group_name      = azurerm_resource_group.avd.name
   tags                     = azurerm_resource_group.avd.tags
@@ -39,6 +36,7 @@ resource "azurerm_virtual_desktop_host_pool" "avd-pool" {
   type                     = var.type
   maximum_sessions_allowed = var.maximum_sessions_allowed
   load_balancer_type       = var.load_balancer_type
+  preferred_app_group_type = var.preferred_app_group_type
 
   scheduled_agent_updates {
     enabled = true
@@ -49,7 +47,7 @@ resource "azurerm_virtual_desktop_host_pool" "avd-pool" {
   }
 
   lifecycle {
-    ignore_changes = [maximum_sessions_allowed, custom_rdp_properties, load_balancer_type]
+    ignore_changes = [maximum_sessions_allowed, custom_rdp_properties, load_balancer_type, friendly_name, description]
   }
 }
 
@@ -57,7 +55,6 @@ resource "azurerm_virtual_desktop_host_pool" "avd-pool" {
 
 # Desktop Virtualization User Session Operator
 resource "azurerm_role_assignment" "avd-rbac-usersessionoperator" {
-  #for_each             = var.hostpool 
   scope                = azurerm_virtual_desktop_host_pool.avd-pool.id
   role_definition_name = "Desktop Virtualization User Session Operator"
   principal_id         = azuread_group.g-avd-admins.object_id

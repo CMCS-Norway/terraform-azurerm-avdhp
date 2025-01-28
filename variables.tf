@@ -136,7 +136,7 @@ variable "storage_share_name" {
 variable "create_private_endpoint" {
   type = bool
   description = "True or false if AVD storage account private endpoint should be created"
-  default = true
+  default = false
 }
 
 variable "profiles_quota" {

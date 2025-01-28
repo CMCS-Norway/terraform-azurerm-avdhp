@@ -53,7 +53,7 @@ resource "azurerm_private_endpoint" "avdstorage-file-endpoint" {
   depends_on = [
     azurerm_resource_group.avd,
     azurerm_storage_account.avdstorage[0],
-    data.azurerm_subnet.avd
+    data.azurerm_subnet.PrivateEndpointSubnet
     ]
 }
 

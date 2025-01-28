@@ -1,4 +1,5 @@
 data "azuread_service_principal" "avd" {
+  count        = var.create_scaling_plan ? 1 : 0
   display_name = var.avd_displayname
 }
 

@@ -4,7 +4,6 @@ data "azuread_service_principal" "avd" {
 }
 
 output "azuread_service_principal" {
-  count        = var.create_scaling_plan ? 1 : 0
   value = data.azuread_service_principal.avd.object_id
 }
 

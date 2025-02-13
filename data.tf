@@ -1,9 +1,10 @@
 data "azuread_service_principal" "avd" {
+  count        = var.create_scaling_plan ? 1 : 0
   display_name = var.avd_displayname
 }
 
 output "azuread_service_principal" {
-  value = data.azuread_service_principal.avd.object_id
+  value = data.azuread_service_principal.avd[0].object_id
 }
 
 data "azurerm_private_dns_zone" "file" {

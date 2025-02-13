@@ -3,7 +3,7 @@
 ####################################
 resource "azurerm_storage_account" "avdstorage" {
   count                         = var.create_storage_account ? 1 : 0
-  name                          = "st${var.root_name}avdpremium"
+  name                          = "st${var.root_name}avd"
   resource_group_name           = azurerm_resource_group.avd.name
   location                      = var.location_storage_account
   tags                          = azurerm_resource_group.avd.tags

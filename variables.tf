@@ -108,7 +108,7 @@ variable "account_kind" {
 variable "account_tier" {
   type = string
   description = "Storage account tier"
-  default = "Standard"
+  default = "Premium"
 }
 
 variable "account_replication_type" {
